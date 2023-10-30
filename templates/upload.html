@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Passport Photo Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .color-sample {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #000;
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .color-sample:hover {
+            border: 2px solid #007bff; /* Highlight on hover */
+        }
+        .color-sample.selected {
+            border: 2px solid #007bff; /* Highlight the selected color */
+        }
+        .color-palette {
+            margin-top: 20px;
+        }
+        form {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload an Image</h1>
+    <form method="POST" action="/" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*">
+
+        <label for="bg_color">Choose a Background Color:</label>
+        <input type="hidden" name="bg_color" id="bg_color" value="">
+
+        <label for="new_height">New Height:</label>
+        <input type="number" name="new_height" id="new_height">
+
+        <div class="color-palette">
+            <span class="color-sample" style="background-color: #ffe5e5" onclick="selectColor(this)"></span> <!-- Pastel Red -->
+            <span class="color-sample" style="background-color: #fff0e5" onclick="selectColor(this)"></span> <!-- Pastel Orange -->
+            <span class="color-sample" style="background-color: #fff5e5" onclick="selectColor(this)"></span> <!-- Pastel Peach -->
+            <span class="color-sample" style="background-color: #fffaf0" onclick="selectColor(this)"></span> <!-- Pastel Yellow -->
+            <span class="color-sample" style="background-color: #f5fff0" onclick="selectColor(this)"></span> <!-- Pastel Green -->
+            <span class="color-sample" style="background-color: #e5f5ff" onclick="selectColor(this)"></span> <!-- Pastel Blue -->
+            <span class="color-sample" style="background-color: #f0e5ff" onclick="selectColor(this)"></span> <!-- Pastel Purple -->
+            <span class="color-sample" style="background-color: #f0f0f0" onclick="selectColor(this)"></span> <!-- Gray -->
+            <span class="color-sample" style="background-color: #000000" onclick="selectColor(this)"></span> <!-- Black -->
+            <span class="color-sample" style="background-color: #ffffff" onclick="selectColor(this)"></span> <!-- White -->
+            <!-- Add more pastel color samples here -->
+        </div>
+
+        <input type="submit" value="Generate Passport Photo">
+    </form>
+
+    <script>
+        function selectColor(element) {
+            // Clear the selected class from all color samples
+            var colorSamples = document.querySelectorAll('.color-sample');
+            colorSamples.forEach(function(sample) {
+                sample.classList.remove('selected');
+            });
+
+            // Get the background color of the selected sample
+            var bgColor = window.getComputedStyle(element).backgroundColor; // Get the computed background color
+
+            // Extract RGB values from the computed color
+            var rgb = bgColor.match(/\d+/g);
+
+            if (rgb && rgb.length === 3) {
+                // Append "255" to create an RGBA value (e.g., "255, 255, 255, 255")
+                rgb.push("255");
+
+                // Add the selected class to the clicked color sample
+                element.classList.add('selected');
+
+                // Set the hidden input field for Flask
+                document.getElementById("bg_color").value = rgb.join(', ');
+            }
+        }
+    </script>
+</body>
+</html>

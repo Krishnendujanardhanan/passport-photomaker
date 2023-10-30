@@ -1,0 +1,4 @@
+rembg
+mtcnn
+flask
+psutil

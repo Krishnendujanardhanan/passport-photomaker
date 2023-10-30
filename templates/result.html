@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Passport Photo Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .photo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .photo {
+            width: 40%;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            padding: 10px;
+        }
+        .photo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generated Passport Photo</h1>
+
+    <div class="photo-container">
+        <div class="photo">
+            <h2>Original Image</h2>
+            <img src="static/image.jpg" alt="Original Passport Photo">
+        </div>
+        <div class="photo">
+            <h2>Generated Image</h2>
+            <img src="{{ image_path }}" alt="Generated Passport Photo">
+        </div>
+    </div>
+
+    <a href="/download">Download Result</a>
+</body>
+</html>
